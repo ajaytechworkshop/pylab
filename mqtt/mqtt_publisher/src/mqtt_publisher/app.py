@@ -17,6 +17,7 @@ class MqttPublisher:
         self.username: str = 'hivemq.webclient.1784364514410'
         self.password: str = 'L3ESGMP27b4jTOwAjDsqcdP@RIa&aE$8'
         self.client: Client = None
+        self.topic = 'zimmer_temp'
 
     def init_mqtt_client(self) -> Client:
         try:
@@ -34,20 +35,24 @@ class MqttPublisher:
         return None
 
     def publish_room_temp(self) -> None:
-        message_info: MQTTMessageInfo = self.client.publish(topic='zimmer_temp', payload="23", qos=1)
+        message_info: MQTTMessageInfo = self.client.publish(topic=self.topic, payload="23", qos=1)
         message_info.wait_for_publish(timeout=5)
         print(f'Published message to Message Broker: {message_info.is_published()}')
 
-    def disconnet(self):
+    def disconnect(self):
         self.client.disconnect()
         self.client.loop_stop()
+
 
 def main():
     print("MQTT Publisher started successfully")
     publisher: MqttPublisher = MqttPublisher()
+    # Initialize Client
     publisher.init_mqtt_client()
+    # Publish
     publisher.publish_room_temp()
 
+    publisher.disconnect()
 
 if __name__ == '__main__':
     main()
