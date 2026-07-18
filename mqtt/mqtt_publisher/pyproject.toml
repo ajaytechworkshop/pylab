@@ -15,3 +15,6 @@ dynamic = ['version']
 
 [tools.setuptools.packages.find]
 where = ['src']
+
+[project.scripts]
+mqtt-pub = "mqtt_publisher.app:publish_room_temp"
