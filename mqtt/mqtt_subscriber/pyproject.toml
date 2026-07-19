@@ -1,0 +1,20 @@
+[build-system]
+requires = ['setuptools>=77.0.3', 'setuptools-scm']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'mqtt_subscriber'
+description = 'A MQTT Subscriber'
+version = '1.0.0'
+requires-python = '>=3.10.1'
+
+dependencies = [
+    'paho-mqtt<2.0.0'
+]
+
+[tools.setuptools.packages.find]
+where = ['src']
+
+[project.scripts]
+mqtt_sub='mqtt_subscriber.__main__:main'
+
